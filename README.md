@@ -1,5 +1,5 @@
 # Gráficas Computacionales
-ITESM CEM
-Repositorio para las tareas del curso Gráficas computacionales 
-José Antonio Rangel Velázquez
-A01377364
+ITESM CEM<br>
+Repositorio para las tareas del curso Gráficas computacionales<br>
+José Antonio Rangel Velázquez<br>
+A01377364<br>
