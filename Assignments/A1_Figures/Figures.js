@@ -179,10 +179,10 @@ function createSquare(gl)
     vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     let verts = [
-        .3,  .3,  0.0,
-        -.3, .3,  0.0,
-        .3,  -.3,  0.0,
-        -.3, -.3,  0.0,
+        0.5,  0.5,  0.0,
+        -0.5, 0.5,  0.0,
+        0.5,  -0.5,  0.0,
+        -0.5, -0.5,  0.0,
     ];
     // void gl.bufferData(target, ArrayBufferView srcData, usage, srcOffset, length);
     // target = gl.ARRAY_BUFFER: Buffer containing vertex attributes, such as vertex coordinates, texture coordinate data, or vertex color data.
@@ -201,9 +201,9 @@ function createTriangle(gl)
     vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     let verts = [
-        0.0, 0.3, 0.0,
-        .3, -.3,  0.0,
-        -.3, -.3,  0.0
+        0.0, 0.5, 0.0,
+        .5, -.5,  0.0,
+        -.5, -.5,  0.0
     ];
     // void gl.bufferData(target, ArrayBufferView srcData, usage, srcOffset, length);
     // target = gl.ARRAY_BUFFER: Buffer containing vertex attributes, such as vertex coordinates, texture coordinate data, or vertex color data.
@@ -222,10 +222,10 @@ function createRhombus(gl)
     vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
     let verts = [
-        0.0, .4, 0.0,
-        -0.4, 0.0,  0.0,
-        0.4, 0.0,  0.0, 
-        0.0, -0.4, 0.0
+        0.0, 0.5, 0.0,
+        -0.5, 0.0,  0.0,
+        0.5, 0.0,  0.0, 
+        0.0, -0.5, 0.0
     ];
     // void gl.bufferData(target, ArrayBufferView srcData, usage, srcOffset, length);
     // target = gl.ARRAY_BUFFER: Buffer containing vertex attributes, such as vertex coordinates, texture coordinate data, or vertex color data.
@@ -243,12 +243,34 @@ function createSphere(gl, radius)
     let vertexBuffer;
     vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    let verts = [
-        0.0, .4, 0.0,
-        -0.4, 0.0,  0.0,
-        0.4, 0.0,  0.0, 
-        0.0, -0.4, 0.0
+    
+    verts =[
+        //initial values for x, y and z.
+        0.0, 0.0, 0.0
     ];
+    // Loop to find the coordinates to create the circle
+    for(var i = 0; i <= 360; i++){
+        if( i < 55 || i > 140){
+            var j = i * Math.PI / 180;
+            var vertTemp = [
+                Math.sin(j)/2,
+                Math.cos(j)/2,
+                0
+            ];
+    
+            verts = verts.concat(vertTemp); 
+        }else{
+            var vertTemp = [
+                0.0, 0.0, 0.0
+            ]
+            verts = verts.concat(vertTemp);
+        }
+             
+    }
+
+    // Number of vertices
+    var n = verts.length / 3;
+
     // void gl.bufferData(target, ArrayBufferView srcData, usage, srcOffset, length);
     // target = gl.ARRAY_BUFFER: Buffer containing vertex attributes, such as vertex coordinates, texture coordinate data, or vertex color data.
     // srcData = This is a new data type introduced into web browsers for use with WebGL. Float32Array is a type of ArrayBuffer, also known as a typed array. This is a JavaScript type that stores compact binary data. 
@@ -256,6 +278,6 @@ function createSphere(gl, radius)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
 
     // The resulting object contains the vertexbuffer, the size of the vertex structure (3 floats, x, y, z), the number of vertices to be drawn, the the primitive to draw.
-    let sphere = {buffer:vertexBuffer, vertSize:3, nVerts:4, primtype:gl.TRIANGLE_FAN};
+    let sphere = {buffer:vertexBuffer, vertSize:3, nVerts:n, primtype:gl.TRIANGLE_FAN};
     return sphere;
 }        

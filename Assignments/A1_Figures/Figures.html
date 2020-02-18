@@ -30,21 +30,21 @@
                 
                 // TO DO: Transform the different figure's positions, and draw them.
 
-
+                // Square
                 mat4.identity(modelViewMatrix);
-                mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, 0.5, -3.333]);
+                mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, 0.6, -3.333]);
                 draw(gl, square);
-                
+                //Triangle
                 mat4.identity(modelViewMatrix);
-                mat4.translate(modelViewMatrix, modelViewMatrix, [1.0, 0.5, -3.333]);
+                mat4.translate(modelViewMatrix, modelViewMatrix, [1.0, 0.6, -3.333]);
                 draw(gl, triangle);
-
+                //Sphere
                 mat4.identity(modelViewMatrix);
-                mat4.translate(modelViewMatrix, modelViewMatrix, [1.0, -0.5, -3.333]);
+                mat4.translate(modelViewMatrix, modelViewMatrix, [1.0, -0.6, -3.333]);
                 draw(gl, sphere);
-
+                //Rhombus
                 mat4.identity(modelViewMatrix);
-                mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, -0.5, -3.333]);
+                mat4.translate(modelViewMatrix, modelViewMatrix, [-1.0, -0.6, -3.333]);
                 draw(gl, rhombus);
 			}
 	);
