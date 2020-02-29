@@ -267,7 +267,7 @@ function createDodecahedron(gl, translation, rotationAxis){
 }
 
 
-function createOctahedron(gl, canvas, rotationAxis){
+function createOctahedron(gl, rotationAxis){
     // Vertex Data
     
 
@@ -278,52 +278,54 @@ function createOctahedron(gl, canvas, rotationAxis){
 
     let verts = [
        // Bottom face
-       -1.0, -1.0 + y_transition, -1.0,
-        1.0, -1.0 + y_transition, -1.0,
-        1.0, -1.0+ y_transition,  1.0,
-       -1.0, -1.0+ y_transition,  1.0,
+       -1.0, -1.0, -1.0,
+        1.0, -1.0, -1.0,
+        1.0, -1.0,  1.0,
+       -1.0, -1.0,  1.0,
 
        // Face1
-       -1.0, -1.0+ y_transition, -1.0,
-       1.0, -1.0+ y_transition, -1.0,
-       0.0, 0.5+ y_transition, 0.0,
+       -1.0, -1.0, -1.0,
+       1.0, -1.0, -1.0,
+       0.0, 0.5, 0.0,
 
        // Face2
-       1.0, -1.0+ y_transition, -1.0,
-       1.0, -1.0+ y_transition,  1.0,
-       0.0, 0.5+ y_transition, 0.0,
+       1.0, -1.0, -1.0,
+       1.0, -1.0,  1.0,
+       0.0, 0.5, 0.0,
 
        // Face3
-       1.0, -1.0+ y_transition,  1.0,
-       -1.0, -1.0+ y_transition,  1.0,
-       0.0, 0.5+ y_transition, 0.0,
+       1.0, -1.0,  1.0,
+       -1.0, -1.0,  1.0,
+       0.0, 0.5, 0.0,
 
        // Face4
-       -1.0, -1.0+ y_transition, -1.0,
-       -1.0, -1.0+ y_transition,  1.0,
-       0.0, 0.5+ y_transition, 0.0,
+       -1.0, -1.0, -1.0,
+       -1.0, -1.0,  1.0,
+       0.0, 0.5, 0.0,
 
        // Face5
-       -1.0, -1.0+ y_transition, -1.0,
-       1.0, -1.0+ y_transition, -1.0,
-       0.0, -2.5+ y_transition, 0.0,
+       -1.0, -1.0, -1.0,
+       1.0, -1.0, -1.0,
+       0.0, -2.5, 0.0,
 
        // Face6
-       1.0, -1.0+ y_transition, -1.0,
-       1.0, -1.0+ y_transition,  1.0,
-       0.0, -2.5+ y_transition, 0.0,
+       1.0, -1.0, -1.0,
+       1.0, -1.0,  1.0,
+       0.0, -2.5, 0.0,
 
        // Face7
-       1.0, -1.0+ y_transition,  1.0,
-       -1.0, -1.0+ y_transition,  1.0,
-       0.0, -2.5+ y_transition, 0.0,
+       1.0, -1.0,  1.0,
+       -1.0, -1.0,  1.0,
+       0.0, -2.5, 0.0,
 
        // Face8
-       -1.0, -1.0+ y_transition, -1.0,
-       -1.0, -1.0+ y_transition,  1.0,
-       0.0, -2.5+ y_transition, 0.0
+       -1.0, -1.0, -1.0,
+       -1.0, -1.0,  1.0,
+       0.0, -2.5, 0.0
 
     ];
+    
+        
     let oV = verts.length / 3;
 
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.DYNAMIC_DRAW);
@@ -390,8 +392,8 @@ function createOctahedron(gl, canvas, rotationAxis){
 
     
 
+    // mat4.translate(octahedron.modelViewMatrix, octahedron.modelViewMatrix, [5,y_transition,-18]);
     
-    mat4.translate(octahedron.modelViewMatrix, octahedron.modelViewMatrix, [5,0,-20]);
 
     octahedron.update = function()
     {
@@ -406,12 +408,12 @@ function createOctahedron(gl, canvas, rotationAxis){
         // mat4 a the matrix to rotate
         // Number rad the angle to rotate the matrix by
         // vec3 axis the axis to rotate around
-        anglet+=0.01;
-        y_transition = Math.sin(anglet) / 2.0;
+        y_transition = Math.sin(anglet) * 5;
         
-                
-        mat4.rotate(this.modelViewMatrix, this.modelViewMatrix, angle, rotationAxis);
         
+        // mat4.rotate(this.modelViewMatrix, this.modelViewMatrix, angle, rotationAxis);
+        mat4.fromTranslation(this.modelViewMatrix, [5, y_transition, -18]); 
+        anglet+=0.005;
     };
     
     return octahedron;
@@ -614,9 +616,15 @@ function draw(gl, objs)
 function run(gl, objs) 
 {
     // The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes a callback as an argument to be invoked before the repaint.
-    requestAnimationFrame(function() { run(gl, objs); });
+    requestAnimationFrame(function() { 
+        run(gl, objs); 
+        
+    });
     draw(gl, objs);
 
-    for(i = 0; i<objs.length; i++)
+    for(i = 0; i<objs.length; i++){
         objs[i].update();
+        // console.log(y_transition);
+    }
+        
 }
