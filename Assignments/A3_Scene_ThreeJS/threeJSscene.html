@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Three.js Scene Graph</title>
+
+<link rel="stylesheet" href="../../Code-samples/libs/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" href="../../Code-samples/css/main.css" />
+<link rel="stylesheet" href="../../Code-samples/css/threejsscene.css" />
+
+<script src="../../Code-samples/libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../../Code-samples/libs/jquery-ui/jquery-ui.js"></script>
+<script src="../../Code-samples/libs/three.js/three.js"></script>
+
+<script src="sceneHandlers.js"></script>
+<script src="threeJSscene.js"></script>
+
+<script type="text/javascript">
+       
+	$(document).ready(
+			function() {
+                var rnd_number = null;
+                $("#slider").slider({min: 0.1, max: 2, value: 1, step: 0.01, animate: false});
+				
+				let canvas = document.getElementById("webglcanvas");
+
+				// create the scene
+                createScene(canvas);
+                
+                $("#figure").click(function(){
+                    rnd_number = Math.floor(Math.random() * 7);
+                    add_figure(rnd_number);
+                });
+
+                $("#reset").click(function(){
+                    reset(canvas);
+                });
+                $("#satelite").click(function(){
+                    add_satelite();
+                });
+				
+		        // Run the run loop
+		        run();
+			}
+	);
+
+</script>
+
+</head>
+<body>
+
+	<div id="container">
+	    <canvas id="webglcanvas" width=800 height=600></canvas>
+		<div id="title">
+			Three.js Scene Graph/Transform Hierarchy
+		</div>
+		<div id="prompt">
+            Drag the mouse to rotate the scene<br>Drag the slider to scale.<br><br>
+            <form action="">
+                <input type="button" value="Add Figure" id= "figure"/>
+            </form> 
+            <form action="">
+                <input type="button" value="Add Satelite" id= "satelite"/>
+            </form> 
+		</div>
+	    <div id="status">
+		    <div id="rotation">rotation: 0,0,0</div>
+            <div id="scale">scale: 1</div>
+        </div>
+        <div id="reset-bottom">
+            <form action="">
+                <input type="button" value="Reset" id= "reset"/>
+            </form> 
+        </div>
+
+        
+	</div>
+    <div id="slider"></div>
+    
+    
+</body>
+
+</html>
