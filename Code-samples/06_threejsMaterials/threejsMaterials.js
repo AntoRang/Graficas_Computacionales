@@ -13,7 +13,7 @@ let duration = 10000; // ms
 let currentTime = Date.now();
 
 let materials = {};
-let mapUrl = "../images/moon_1024.jpg";
+let mapUrl = "../../Assignments/images/moon_1024.jpg";
 let textureMap = null;
 
 function animate() 

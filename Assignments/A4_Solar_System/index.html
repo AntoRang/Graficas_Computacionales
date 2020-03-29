@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D planets</title>
+
+    <link rel="stylesheet" href="libs/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/threejsscene.css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"/>
+
+    
+    <script src="libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="libs/jquery-ui/jquery-ui.js"></script>
+    <script src="libs/three.js/three.js"></script>
+    <script src="libs/controls/OrbitControls.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+
+        uniform float time;
+
+        //A sampler is a set of GLSL variable types. Variables of one of the sampler types must be uniforms or as function parameters. Each sampler in a program represents a single texture of a particular texture type.
+        uniform sampler2D texture1;
+        uniform sampler2D texture2;
+
+        varying vec2 texCoord;
+
+        void main( void ) {
+
+            /*Texture2D - Retrieves texels (i.e. the color) of a texture for the given coordinates.
+            vec4 texture2D(sampler2D sampler, vec2 coord)
+            sampler - specifies the sampler to which the texture from which texels will be retrieved is bound.
+            coord - specifies the texture coordinates at which texture will be sampled.
+            */
+            vec4 noise = texture2D( texture1, texCoord );
+
+            vec2 T1 = texCoord + vec2( 1.5, -1.5 ) * time * 0.02;
+            vec2 T2 = texCoord + vec2( -1.0, 0.0 ) * time * 0.02;
+
+            T1.x += noise.b * 0.2;
+            T1.y += noise.g * 0.2;
+
+            T2.x -= noise.r * 0.2;
+            T2.y += noise.b * 0.2;
+
+            float alpha = texture2D( texture1, T1).a; // + 0.25; -  0.25;
+            vec4 color = texture2D( texture2, T2 );
+
+            vec4 newColor = color * (vec4( alpha, alpha, alpha, alpha )) + color;
+            gl_FragColor = newColor;
+        }
+
+    </script>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+
+        varying vec2 texCoord;
+        uniform vec2 uvScale;
+
+        void main()
+        {
+            texCoord = uvScale * uv;
+            vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+            gl_Position = projectionMatrix * mvPosition;
+        }
+
+    </script>
+
+    <script src="js_scene.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(
+        function() {
+
+            // $("#slider").slider({min: 0.1, max: 2, value: 1, step: 0.01, animate: false});
+            let canvas = document.getElementById("webglcanvas");
+            // canvas.width = $('.container').width();
+
+            // create the scene
+            createScene(canvas);
+
+            // Run the run loopcd 
+            run();
+        }
+    );
+
+    </script>
+
+</head>
+<body>
+    <!-- As a link -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Graficas 2020</a>
+    </nav>
+            
+    <canvas id="webglcanvas" width=1600 height=900></canvas>
+                
+    
+    <script src="planetas/mercurio.js"></script>
+    <script src="planetas/venus.js"></script>
+    <script src="planetas/tierra.js"></script>
+    <script src="planetas/marte.js"></script>
+    <script src="planetas/jupiter.js"></script>
+    <script src="planetas/saturno.js"></script>
+    <script src="planetas/urano.js"></script>
+    <script src="planetas/neptuno.js"></script>
+    <script src="planetas/pluton.js"></script>
+
+
+</body>
+</html>

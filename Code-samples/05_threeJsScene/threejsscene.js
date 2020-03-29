@@ -76,7 +76,7 @@ function createScene(canvas)
     scene.add(ambientLight);
 
     let textureUrl = "../images/ash_uvgrid01.jpg";
-    let texture = new THREE.TextureLoader().load(textureUrl);
+    let texture = new THREE.TextureLoader().load( textureUrl );
     let material = new THREE.MeshPhongMaterial({ map: texture });
 
     // Create the cube geometry

@@ -70,8 +70,8 @@ function createScene(canvas)
 
     cubeGroup = new THREE.Object3D;
     
-    let GLOWMAP = new THREE.TextureLoader().load("../images/water_texture_2.jpg");
-    let NOISEMAP = new THREE.TextureLoader().load("../images/noisy-texture.png");
+    let GLOWMAP = new THREE.TextureLoader().load("../../Assignments/images/water_texture_2.jpg");
+    let NOISEMAP = new THREE.TextureLoader().load("../../Assignments/images/noisy-texture.png");
     uniforms = 
     {
         time: { type: "f", value: 0.2 },
