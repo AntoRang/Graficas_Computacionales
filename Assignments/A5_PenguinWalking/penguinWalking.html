@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> Penguin Walking Animation </title>
+
+<link rel="stylesheet" href="../../Code-samples/libs/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" href="../../Code-samples/libs/colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" href="../../Code-samples/css/main.css" />
+<link rel="stylesheet" href="../../Code-samples/css/keyframeanimation.css" />
+<link rel="stylesheet" href="../../Code-samples/css/threejsshadows.css" />
+<link rel="stylesheet" href="../../Code-samples/css/keyframeanimation.css" />
+
+<script src="../../Code-samples/libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../../Code-samples/libs/jquery-ui/jquery-ui.js"></script>
+
+<script src="../../Code-samples/libs/three.js/three.js"></script>
+<script src="../../Code-samples/libs/three.js/controls/OrbitControls.js"></script>
+<script src="../../Code-samples/libs/colorpicker/js/colorpicker.js"></script>
+
+<script src="../../Code-samples/libs/tween.js/tween.js"></script>
+<script src="../../Code-samples/libs/three.js/loaders/MTLLoader.js"></script>
+<script src="../../Code-samples/libs/three.js/loaders/OBJLoader.js"></script>
+<script src="../../Code-samples/libs/keyframe.js/keyframe.js"></script>
+<script src="../../Code-samples/libs/three.js/utils/promiseLoader.js"></script>
+
+<script src="threejsPenguinWalking.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(
+			function() {
+
+				let canvas = document.getElementById("webglcanvas");
+
+				// create the scene
+				createScene(canvas);
+
+				orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+				orbitControls.enableDaming = true;
+				orbitControls.campingFactor = 0.25
+				orbitControls.enableZoom = true;
+
+				// set up the animations
+				
+
+				// create the animations
+			
+				
+		        // Run the run loop
+		        run();
+			}
+	);
+
+</script>
+
+</head>
+<body>
+
+<div id="container">
+    <canvas id="webglcanvas" width=1400 height=800></canvas>
+	<div id="title">
+		Penguin Walking Animation
+	</div>
+
+	<div id="prompt">
+		Drag the mouse to rotate the camera<br>Use the scroll wheel to zoom.
+	</div>
+</div>
+
+<button id="playButton" onClick="playAnimations();">Play</button>
+
+</div>
+
+</html>
