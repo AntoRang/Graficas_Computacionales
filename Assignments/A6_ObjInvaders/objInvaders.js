@@ -270,7 +270,7 @@ function alienController(){
         alien_states.animation[i] = "Run_L";
         //If alien in run state, run to attack/threaten point
         if (aliens.children[i].position.z < distance){
-          aliens.children[i].position.z +=2;
+          aliens.children[i].position.z +=0.5;
         } else if (aliens.children[i].position.z >= distance){
           alien_states.state[i] = "threaten";
           alien_states.time_in_state[i] = 0;
